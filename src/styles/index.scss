@@ -1,9 +1,77 @@
-body {
-  background-color: orange;
-  h1 {
-    &:hover {
-      color: blue;
-    }
+// Base reset
+@import './base';
 
-  }
+$mainSpacing: 0.3rem;
+$mainBorderRadius: 0.25rem;
+
+$white: #fbfff1;
+$gold: #ff7f11;
+$light-blue: #b9c6ae;
+$dark-blue: #9cb380;
+$orange: #c73e1d;
+$brown: #522a27;
+$green: #046d30;
+
+#root {
+  display: flex;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif;
+  width: 100%;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  background-color: $brown;
+  padding-top: 2em;
+}
+
+.navbar {
+  color: $white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchDiv {
+  padding: 10px;
+  align-items: baseline;
+  font-size: 25px;
+}
+
+.locationInput {
+  font-size: 28px;
+  margin: 10px;
+  border-bottom: 1px solid $white;
+}
+
+.main {
+  flex: 1;
+  background-color: $light-blue;
+}
+
+footer {
+  color: $white;
+  background-color: $brown;
+}
+
+// Buttons
+.btn {
+  text-transform: uppercase;
+  letter-spacing: $mainSpacing;
+  border: 2px solid $dark-blue;
+  background-color: $green;
+  color: $white;
+  padding: 0.45rem 0.8rem;
+  display: inline-block;
+  cursor: pointer;
+  font-size: 0.8rem;
+  border-radius: $mainBorderRadius;
+  display: inline-block;
+}
+
+.btn:hover {
+  background: $dark-blue;
+  border: 2px solid $green;
+  color: $brown;
 }
