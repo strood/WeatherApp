@@ -1,12 +1,13 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useCallback } from 'react';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
+import { key } from './config';
 
 const AppContext = React.createContext();
 
 const url = 'https://api.openweathermap.org/data/2.5/weather?q=';
 const groupUrl = 'https://api.openweathermap.org/data/2.5/group?id=';
-
-const key = '&appid=49e43d92bfec88b92b6ce180b0da4d88';
 
 const getLocalLocations = () => {
   let loc = localStorage.getItem('Locations');
@@ -21,8 +22,59 @@ const AppProvider = ({ children }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  // const [locations, setLocations] = useState(getLocalLocations());
-  const [locations, setLocations] = useState(['5913490', '5419384']);
+  // const [savedLocations, setSavedLocations] = useState(getLocalLocations());
+  const [savedLocations, setSavedLocations] = useState(['5913490', '5419384']);
+  const [loadedLocations, setLoadedLocations] = useState([]);
+
+  // Grab and load saved locations, set loadedLocations
+  const fetchSavedLocations = useCallback(async () => {
+    setLoading(true);
+    try {
+      console.log(`${groupUrl}${savedLocations.toString()}${key}`);
+      const response = await fetch(
+        `${groupUrl}${savedLocations.toString()}${key}`,
+        {
+          mode: 'cors',
+        }
+      );
+      const respData = await response.json();
+      console.log(respData.list);
+      setLoadedLocations(respData.list);
+      console.log(respData);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setError(true);
+      setLoading(false);
+    }
+  }, [savedLocations]);
+
+  // Initial page load get saved locations.
+  useEffect(() => {
+    fetchSavedLocations();
+  }, [fetchSavedLocations]);
+
+  const fetchLocation = useCallback(async () => {
+    try {
+      const response = await fetch(`${url}${searchTerm}${key}`, {
+        code: 'cors',
+      });
+      const respData = await response.json();
+      console.log('no error');
+      console.log(respData);
+      if (respData.cod === '404') {
+        console.log(error);
+      }
+    } catch (error) {
+      console.log('error');
+      console.log(error);
+      setError(true);
+    }
+  }, [searchTerm]);
+
+  useEffect(() => {
+    fetchLocation();
+  }, [searchTerm, fetchLocation]);
 
   // const fetchLocation = useCallback(async () => {
   //   setLoading(true);
@@ -40,31 +92,10 @@ const AppProvider = ({ children }) => {
   //   }
   // }, [searchTerm]);
 
-  const fetchSavedLocations = () => {
-    setLoading(true);
-    try {
-      console.log(`${groupUrl}${locations.toString()}${key}`);
-      fetch(`${groupUrl}${locations.toString()}${key}`, {
-        mode: 'cors',
-      })
-        .then(function (response) {
-          return response.json();
-        })
-        .then(function (response) {
-          console.log(response);
-        });
-    } catch (error) {
-      console.log(error);
-      setError(true);
-    }
-  };
-
-  useEffect(() => {
-    fetchSavedLocations();
-  }, []);
-
   return (
-    <AppContext.Provider value={{ locations, loading, error, setSearchTerm }}>
+    <AppContext.Provider
+      value={{ loadedLocations, savedLocations, loading, error, setSearchTerm }}
+    >
       {children}
     </AppContext.Provider>
   );
