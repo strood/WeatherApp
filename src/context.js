@@ -18,30 +18,32 @@ const getLocalLocations = () => {
 };
 
 const AppProvider = ({ children }) => {
-  const [loadingLocal, setLoadingLocal] = useState(true);
+  const [loadingLocal, setLoadingLocal] = useState(false);
   const [loadingError, setLoadingError] = useState(false);
-  // const [savedLocations, setSavedLocations] = useState(getLocalLocations());
-  const [savedLocations, setSavedLocations] = useState(['5913490', '5419384']);
+  const [savedLocations, setSavedLocations] = useState(getLocalLocations());
   const [loadedLocations, setLoadedLocations] = useState([]);
 
   // Grab and load saved locations, set loadedLocations
   const fetchSavedLocations = async () => {
-    setLoadingLocal(true);
-    try {
-      console.log(`${groupUrl}${savedLocations.toString()}${key}`);
-      const response = await fetch(
-        `${groupUrl}${savedLocations.toString()}${key}`,
-        {
-          mode: 'cors',
-        }
-      );
-      const respData = await response.json();
-      setLoadedLocations(respData.list);
-      setLoadingLocal(false);
-    } catch (error) {
-      console.log(`Load Error: ${error}`);
-      setLoadingError(true);
-      setLoadingLocal(false);
+    console.log(savedLocations);
+    if (savedLocations.length !== 0) {
+      setLoadingLocal(true);
+      try {
+        console.log(`${groupUrl}${savedLocations.toString()}${key}`);
+        const response = await fetch(
+          `${groupUrl}${savedLocations.toString()}${key}`,
+          {
+            mode: 'cors',
+          }
+        );
+        const respData = await response.json();
+        setLoadedLocations(respData.list);
+        setLoadingLocal(false);
+      } catch (error) {
+        console.log(`Load Error: ${error}`);
+        setLoadingError(true);
+        setLoadingLocal(false);
+      }
     }
   };
 

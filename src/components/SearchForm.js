@@ -40,8 +40,6 @@ export default function SearchForm() {
       }
       if (respData.cod === 200) {
         console.log(`Valid Search^`);
-        console.log(loadedLocations);
-        console.log(savedLocations);
         console.log(respData);
         setLoadedLocations([...loadedLocations, respData]);
         setSavedLocations([...savedLocations, String(respData.id)]);
@@ -54,10 +52,6 @@ export default function SearchForm() {
       setLoadingSearch(false);
     }
   };
-
-  // useEffect(() => {
-  //   fetchLocation();
-  // }, [searchTerm]);
 
   useEffect(() => {
     searchValue.current.focus();

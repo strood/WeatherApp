@@ -8,7 +8,7 @@ export default function Locations() {
   if (loadingLocal) {
     return <Loading />;
   }
-  if (loadedLocations.length < 1) {
+  if (loadedLocations.length === 0) {
     return (
       <div className='main'>
         <h2>No locations added yet!</h2>
