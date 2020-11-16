@@ -29,7 +29,7 @@ const AppProvider = ({ children }) => {
       setLoadingLocal(true);
       try {
         console.log(
-          `${groupUrl}${savedLocations.toString()}${key}&units=imperial`
+          `${groupUrl}${savedLocations.toString()}${key}&units=metric`
         );
         const response = await fetch(
           `${groupUrl}${savedLocations.toString()}${key}&units=metric`,

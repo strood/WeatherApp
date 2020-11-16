@@ -4,8 +4,12 @@
   "description": "A template for webpack projects",
   "main": "webpack.config.js",
   "dependencies": {
+    "@chakra-ui/react": "^1.0.0",
+    "@emotion/react": "^11.0.0",
+    "@emotion/styled": "^11.0.0",
     "babel-cli": "^6.26.0",
     "babel-preset-react-app": "^3.1.2",
+    "framer-motion": "^2.9.4",
     "inline-source-map": "^0.6.2",
     "mini-css-extract-plugin": "^1.2.0",
     "react": "^16.13.1",

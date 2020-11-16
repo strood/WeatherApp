@@ -11,7 +11,7 @@ function App() {
       <Locations />
       <footer>
         <p>
-          Created by <a href='www.github.com/strood'>Strood</a>
+          Created by <a href='https://www.github.com/strood'>Strood</a>
         </p>
       </footer>
     </>

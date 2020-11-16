@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useGlobalContext } from '../context';
 import { key } from '../config';
+import { Spinner } from '@chakra-ui/react';
 
 const url = 'https://api.openweathermap.org/data/2.5/weather?q=';
 
@@ -21,9 +22,12 @@ export default function SearchForm() {
     setLoadingSearch(true);
     console.log(searchValue.current.value);
     try {
-      const response = await fetch(`${url}${searchValue.current.value}${key}`, {
-        code: 'cors',
-      });
+      const response = await fetch(
+        `${url}${searchValue.current.value}${key}&units=metric`,
+        {
+          code: 'cors',
+        }
+      );
       const respData = await response.json();
       console.log(respData);
       if (respData.cod === '404') {
@@ -41,8 +45,8 @@ export default function SearchForm() {
       if (respData.cod === 200) {
         console.log(`Valid Search^`);
         console.log(respData);
-        setLoadedLocations([...loadedLocations, respData]);
-        setSavedLocations([...savedLocations, String(respData.id)]);
+        setLoadedLocations([respData, ...loadedLocations]);
+        setSavedLocations([String(respData.id), ...savedLocations]);
       }
       setLoadingSearch(false);
     } catch (error) {
@@ -78,7 +82,7 @@ export default function SearchForm() {
           ref={searchValue}
         />
         <button className='btn' type='submit'>
-          {loadingSearch ? '...' : 'Add'}
+          {loadingSearch ? <Spinner /> : 'Add'}
         </button>
       </form>
     </div>
