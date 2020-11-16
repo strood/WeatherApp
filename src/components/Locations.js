@@ -1,6 +1,7 @@
 import React from 'react';
 import { useGlobalContext } from '../context';
 import Loading from './Loading';
+import Location from './Location';
 
 export default function Locations() {
   const { loadingLocal, loadingError, loadedLocations } = useGlobalContext();
@@ -20,7 +21,7 @@ export default function Locations() {
     <div className='main'>
       {loadingError ? <h1>Error Loading Locations</h1> : null}
       {loadedLocations.map((location) => {
-        return <h1 key={location.id}>{location.name}</h1>;
+        return <Location key={location.id} location={location} />;
       })}
     </div>
   );

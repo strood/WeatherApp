@@ -1,6 +1,7 @@
 // Base reset
 @import './base';
 
+// Vars
 $mainSpacing: 0.3rem;
 $mainBorderRadius: 0.25rem;
 
@@ -12,6 +13,7 @@ $orange: #c73e1d;
 $brown: #522a27;
 $green: #046d30;
 
+// Main Body Components
 #root {
   display: flex;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
@@ -33,18 +35,6 @@ $green: #046d30;
   align-items: center;
 }
 
-.searchDiv {
-  padding: 10px;
-  align-items: baseline;
-  font-size: 25px;
-}
-
-.locationInput {
-  font-size: 28px;
-  margin: 10px;
-  border-bottom: 1px solid $white;
-}
-
 .main {
   flex: 1;
   background-color: $light-blue;
@@ -53,6 +43,14 @@ $green: #046d30;
 footer {
   color: $white;
   background-color: $brown;
+}
+
+// Location Articles
+sl-card {
+  --border-width: 4px;
+  width: 200px;
+  height: 300px;
+  // border: ;
 }
 
 // Buttons
@@ -74,4 +72,34 @@ footer {
   background: $dark-blue;
   border: 2px solid $green;
   color: $brown;
+}
+
+// SearchDiv
+
+.searchDiv {
+  padding: 10px;
+  align-items: baseline;
+  font-size: 25px;
+}
+
+.locationInput {
+  font-size: 28px;
+  margin: 10px;
+  border-bottom: 1px solid $white;
+}
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: red;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: red;
+}
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: red;
 }

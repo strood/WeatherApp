@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { useCallback } from 'react';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import { key } from './config';
@@ -29,9 +28,11 @@ const AppProvider = ({ children }) => {
     if (savedLocations.length !== 0) {
       setLoadingLocal(true);
       try {
-        console.log(`${groupUrl}${savedLocations.toString()}${key}`);
+        console.log(
+          `${groupUrl}${savedLocations.toString()}${key}&units=imperial`
+        );
         const response = await fetch(
-          `${groupUrl}${savedLocations.toString()}${key}`,
+          `${groupUrl}${savedLocations.toString()}${key}&units=metric`,
           {
             mode: 'cors',
           }
