@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { useGlobalContext } from '../context';
 
 export default function SearchForm() {
-  const { setSearchTerm } = useGlobalContext();
+  const { setSearchTerm, searchError, loadingSearch } = useGlobalContext();
 
   const searchValue = useRef('');
 
@@ -12,7 +12,10 @@ export default function SearchForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSearchTerm(searchValue.current.value);
+    if (searchValue.current.value.length > 1) {
+      setSearchTerm(searchValue.current.value);
+      searchValue.current.value = '';
+    }
   };
 
   return (
@@ -20,13 +23,14 @@ export default function SearchForm() {
       <form onSubmit={handleSubmit} className='searchForm'>
         <label htmlFor='location'>Location:</label>
         <input
+          placeholder={searchError ? `${searchError} Search Error` : null}
           className='locationInput'
           type='text'
           id='location'
           ref={searchValue}
         />
         <button className='btn' type='submit'>
-          Add
+          {loadingSearch ? '...' : 'Add'}
         </button>
       </form>
     </div>

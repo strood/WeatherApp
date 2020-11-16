@@ -3,9 +3,9 @@ import { useGlobalContext } from '../context';
 import Loading from './Loading';
 
 export default function Locations() {
-  const { loading, error, loadedLocations } = useGlobalContext();
+  const { loadingLocal, loadingError, loadedLocations } = useGlobalContext();
 
-  if (loading) {
+  if (loadingLocal) {
     return <Loading />;
   }
   if (loadedLocations.length < 1) {
@@ -18,7 +18,7 @@ export default function Locations() {
   }
   return (
     <div className='main'>
-      {error ? <h1>Error</h1> : null}
+      {loadingError ? <h1>Error Loading Locations</h1> : null}
       {loadedLocations.map((location) => {
         return <h1 key={location.id}>{location.name}</h1>;
       })}
