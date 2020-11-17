@@ -4,7 +4,7 @@ Your personal weather dashboard. Add as many locations as you like!
 
 Built using react, Open Weather API, Chakra UI, Webpack.
 
-[Live Demo]()
+[Live Demo](https://weather-board.netlify.app/) -- Try it out!
 
 ### Setup basic project structure
 
