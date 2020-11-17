@@ -1,17 +1,8 @@
 // Base reset
+@import './vars';
 @import './base';
-
-// Vars
-$mainSpacing: 0.3rem;
-$mainBorderRadius: 0.25rem;
-
-$white: #fbfff1;
-$gold: #ff7f11;
-$light-blue: #b9c6ae;
-$dark-blue: #9cb380;
-$orange: #c73e1d;
-$brown: #522a27;
-$green: #046d30;
+@import './components/Location';
+@import './components/SearchDiv';
 
 // Main Body Components
 #root {
@@ -19,11 +10,11 @@ $green: #046d30;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
     'Lucida Sans', Arial, sans-serif;
   width: 100%;
-  height: 96.5vh;
+  min-height: 96.5vh;
   flex-direction: column;
   justify-content: center;
   align-content: center;
-  background-color: $brown;
+  background-color: $gold;
   padding-top: 2em;
 }
 
@@ -33,6 +24,10 @@ $green: #046d30;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  h1 {
+    font-size: 20px;
+    font-weight: bolder;
+  }
 }
 
 .main {
@@ -40,7 +35,7 @@ $green: #046d30;
   flex-wrap: wrap;
   justify-content: center;
   flex: 1;
-  background-color: $dark-blue;
+  background-color: $light-green;
   flex-direction: row;
 }
 
@@ -49,58 +44,11 @@ footer {
   background-color: $brown;
 }
 
-// Location Articles
-.location {
-  margin: 20px 5px;
-  border-radius: 20px;
-  font-family: 'Lato', sans-serif;
-  font-weight: 300;
-  position: relative;
-  overflow: hidden;
-  width: 270px;
-  height: 270px;
-  box-shadow: 0px 0px 25px 1px rgba(50, 50, 50, 0.1);
-  animation: appear 500ms ease-out forwards;
-  background-color: $light-blue;
-  h1 {
-    position: absolute;
-    font-size: 60px;
-    color: $gold;
-    bottom: 15%;
-    left: 35px;
-    opacity: 0;
-    transform: translateX(150px);
-    animation: title-appear 500ms ease-out 500ms forwards;
-  }
-  .delDiv {
-    animation: title-appear 500ms ease-out 500ms forwards;
-    opacity: 0;
-    cursor: pointer;
-    position: absolute;
-    top: 5%;
-    left: 8%;
-    font-size: 20px;
-    &:hover {
-      color: $orange;
-    }
-  }
-
-  p {
-    position: absolute;
-    font-size: 28px;
-    color: lighten($gold, 10%);
-    bottom: 1%;
-    left: 35px;
-    opacity: 0;
-    animation: title-appear 500ms ease-out 500ms forwards;
-  }
-}
-
 // Buttons
 .btn {
   text-transform: uppercase;
   letter-spacing: $mainSpacing;
-  border: 2px solid $dark-blue;
+  border: 2px solid $light-green;
   background-color: $green;
   color: $white;
   padding: 0.45rem 0.8rem;
@@ -112,63 +60,7 @@ footer {
 }
 
 .btn:hover {
-  background: $dark-blue;
+  background: $light-green;
   border: 2px solid $green;
   color: $brown;
-}
-
-// SearchDiv
-
-.searchDiv {
-  padding: 10px;
-  align-items: baseline;
-  font-size: 25px;
-}
-
-.locationInput {
-  font-size: 28px;
-  margin: 10px;
-  border-bottom: 1px solid $white;
-}
-
-::placeholder {
-  /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: red;
-  opacity: 1; /* Firefox */
-}
-
-:-ms-input-placeholder {
-  /* Internet Explorer 10-11 */
-  color: red;
-}
-
-::-ms-input-placeholder {
-  /* Microsoft Edge */
-  color: red;
-}
-
-@keyframes title-appear {
-  from {
-    opacity: 0;
-    transform: translateX(150px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0px);
-  }
-}
-
-@keyframes appear {
-  0% {
-    transform: scale(0);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  75% {
-    transform: scale(0.95);
-  }
-  100% {
-    transform: scale(1);
-  }
 }

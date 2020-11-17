@@ -12,8 +12,9 @@ export default function Locations() {
   if (loadedLocations.length === 0) {
     return (
       <div className='main'>
+        <br />
         <h2>No locations added yet!</h2>
-        <h2>Search for a city to add above.</h2>
+        <h2>Search for a city above.</h2>
       </div>
     );
   }
