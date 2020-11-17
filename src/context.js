@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import { key } from './config';
@@ -15,24 +15,29 @@ const getLocalLocations = () => {
     return [];
   }
 };
+const getLocalUnits = () => {
+  let unit = localStorage.getItem('Units');
+  if (unit) {
+    return JSON.parse(unit);
+  } else {
+    return 'imperial';
+  }
+};
 
 const AppProvider = ({ children }) => {
   const [loadingLocal, setLoadingLocal] = useState(false);
   const [loadingError, setLoadingError] = useState(false);
   const [savedLocations, setSavedLocations] = useState(getLocalLocations());
+  const [savedUnits, setSavedUnits] = useState(getLocalUnits());
   const [loadedLocations, setLoadedLocations] = useState([]);
 
   // Grab and load saved locations, set loadedLocations
   const fetchSavedLocations = async () => {
-    console.log(savedLocations);
     if (savedLocations.length !== 0) {
       setLoadingLocal(true);
       try {
-        console.log(
-          `${groupUrl}${savedLocations.toString()}${key}&units=metric`
-        );
         const response = await fetch(
-          `${groupUrl}${savedLocations.toString()}${key}&units=metric`,
+          `${groupUrl}${savedLocations.toString()}${key}&units=${savedUnits}`,
           {
             mode: 'cors',
           }
@@ -53,8 +58,12 @@ const AppProvider = ({ children }) => {
   }, [savedLocations]);
 
   useEffect(() => {
+    localStorage.setItem('Units', JSON.stringify(savedUnits));
+  }, [savedUnits]);
+
+  useEffect(() => {
     fetchSavedLocations();
-  }, []);
+  }, [savedUnits]);
 
   return (
     <AppContext.Provider
@@ -65,6 +74,8 @@ const AppProvider = ({ children }) => {
         setSavedLocations,
         loadingLocal,
         loadingError,
+        savedUnits,
+        setSavedUnits,
       }}
     >
       {children}

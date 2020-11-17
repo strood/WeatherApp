@@ -20,7 +20,7 @@ export default function SearchForm() {
 
   const fetchLocation = async () => {
     setLoadingSearch(true);
-    console.log(searchValue.current.value);
+
     try {
       const response = await fetch(
         `${url}${searchValue.current.value}${key}&units=metric`,
@@ -29,13 +29,11 @@ export default function SearchForm() {
         }
       );
       const respData = await response.json();
-      console.log(respData);
+
       if (respData.cod === '404') {
-        console.log(`Invalid Search: ${respData}`);
         setSearchError('Invalid');
         setLoadingSearch(false);
       }
-      console.log(respData.id);
 
       if (savedLocations.includes(String(respData.id))) {
         respData.cod = 400;
@@ -43,15 +41,12 @@ export default function SearchForm() {
         setLoadingSearch(false);
       }
       if (respData.cod === 200) {
-        console.log(`Valid Search^`);
-        console.log(respData);
         setLoadedLocations([respData, ...loadedLocations]);
         setSavedLocations([String(respData.id), ...savedLocations]);
       }
       setLoadingSearch(false);
     } catch (error) {
       console.log('Search Error');
-      console.log(error);
       setSearchError('Error');
       setLoadingSearch(false);
     }

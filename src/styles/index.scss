@@ -2,7 +2,7 @@
 @import './vars';
 @import './base';
 @import './components/Location';
-@import './components/SearchDiv';
+@import './components/Nav';
 
 // Main Body Components
 #root {
@@ -51,7 +51,7 @@ footer {
   border: 2px solid $light-green;
   background-color: $green;
   color: $white;
-  padding: 0.45rem 0.8rem;
+  padding: 0.45rem 0.9rem;
   display: inline-block;
   cursor: pointer;
   font-size: 0.8rem;

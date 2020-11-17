@@ -2,7 +2,9 @@
 
 Your personal weather dashboard. Add as many locations as you like!
 
-Built using react and Weather API
+Built using react, Open Weather API, Chakra UI, Webpack.
+
+[Live Demo]()
 
 ### Setup basic project structure
 

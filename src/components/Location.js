@@ -3,6 +3,7 @@ import { useGlobalContext } from '../context';
 
 export default function Location({ location }) {
   const {
+    savedUnits,
     setSavedLocations,
     savedLocations,
     setLoadedLocations,
@@ -10,14 +11,10 @@ export default function Location({ location }) {
   } = useGlobalContext();
 
   const deleteLocation = (id) => {
-    console.log(String(id));
-    console.log(loadedLocations);
-    console.log(savedLocations);
     setLoadedLocations(loadedLocations.filter((loc) => loc.id !== id));
     setSavedLocations(savedLocations.filter((loc) => loc !== String(id)));
   };
 
-  console.log(location);
   return (
     <article className='location'>
       <div className='delDiv' onClick={() => deleteLocation(location.id)}>
@@ -30,7 +27,8 @@ export default function Location({ location }) {
       />
       <h1>
         {Math.floor(location.main.temp)}
-        <span>&#176;</span>C
+        <span>&#176;</span>
+        {String(savedUnits) === 'imperial' ? 'F' : 'C'}
       </h1>
       <h3>- {location.weather[0].description} -</h3>
       <p>{location.name}</p>
